@@ -44,6 +44,38 @@ export class AppComponent implements OnInit{
     this.ctx.arc(x.posx, x.posy, x.size, 0, 2*Math.PI);
     this.ctx.stroke();
   }
+
+  tick(){
+    const time = setInterval(() => {
+      this.ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+      this.ctx.beginPath();
+      if (this.count < 120){
+        this.count++;
+
+        for (let i = 0; i < 10; i++){
+          if (this.bubble[i].posx > 1080){
+            this.bubble[i].posx = 0;
+            this.bubble[i].rnod = 360;
+          }
+          if (this.bubble[i].posy > 600){
+            this.bubble[i].posy = 0;
+            this.bubble[i].cnod = 0;
+          }
+          this.bubble[i] = {
+            posx: this.bubble[i].posx + 3,
+            posy: this.bubble[i].posy + 20,
+            size: this.bubble[i].size,
+            color: this.bubble[i].color,
+            rnod: this.bubble[i].rnod - 1,
+            cnod: this.bubble[i].cnod + 1
+          }
+        }
+      } else {
+        clearInterval(time);
+      }
+    }, 1000/6);
+  }
+
 }
 
 export interface bubbles{

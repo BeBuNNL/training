@@ -1,5 +1,7 @@
 <canvas #canvas width="1080" height="600">
   <a *ngFor="let bub of bubble">
       {{drawbub(bub)}}
+      
   </a>
 </canvas>
+<button type="button" (click)="tick()">Play</button>
