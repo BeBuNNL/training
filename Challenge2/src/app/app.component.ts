@@ -1,4 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { getCurrencySymbol } from '@angular/common';
+declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -8,47 +10,51 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 export class AppComponent implements OnInit{
   title = 'Challenge2';
 
-  @ViewChild('canvas', {static:true}) canvas:ElementRef<HTMLCanvasElement>;
-  public ctx: CanvasRenderingContext2D;
   public bubble: bubbles[] = [];
+  public bub: bubbles;
   public count: number;
-
-  ngOnInit(): void{
-    this.ctx = this.canvas.nativeElement.getContext("2d");
-    this.count = 0;
-
-    for( let i = 0; i < 10; i++ ){
-      let xr = Math.random();
-      let xy = Math.random();
-      this.bubble[i] = {
-        posx: Math.floor(xr*1080),
-        posy: Math.floor(xy*600),
-        size: Math.floor(Math.random()*100),
-        color: Math.round(Math.random()*100)/10,
-        rnod: Math.floor(xr*360),
-        cnod: Math.floor(xy*30)
-      }
+  public initBubble(){
+    let xr = Math.random();
+    let xy = Math.random();
+    this.bub = {
+      posx: Math.floor(xr*1080),
+      posy: Math.floor(xy*600),
+      size: Math.floor(Math.random()*100),
+      color: Math.round(Math.random()*100)/10,
+      rnod: Math.floor(xr*360),
+      cnod: Math.floor(xy*30),
+      d: ''
     }
-  }
-
-  drawbub(x: bubbles){
-    if (x.color > 7.5){
-      this.ctx.fillStyle = 'green';
-    } else if (x.color < 3.5){
-      this.ctx.fillStyle = 'red';
+    if (this.bub.color > 7.5){
+      this.bub.color = 'green';
+    } else if (this.bub.color < 3.5){
+      this.bub.color = 'red';
     } else {
-      this.ctx.fillStyle = 'yellow';
+      this.bub.color = 'yellow';
     }
-    this.ctx.fill();
-    this.ctx.beginPath();
-    this.ctx.arc(x.posx, x.posy, x.size, 0, 2*Math.PI);
-    this.ctx.stroke();
+    this.bub.d = 'M ' + this.bub.posx + ' ' + this.bub.posy + 'a ' + this.bub.size + ',' + this.bub.size + ' 0 1,0 ' + this.bub.size*2 + ', 0' + ' a ' + this.bub.size + ',' + this.bub.size + ' 0 1,0 ' + -this.bub.size*2 + ', 0'; 
+    return this.bub;
+  };
+  
+  ngOnInit(): void{
+    this.count = 0;
+    var elem = this.initBubble();
+    var elem1 = this.initBubble();
+    var elem2 = this.initBubble();
+    var elem3 = this.initBubble();
+    var elem4 = this.initBubble();
+    var elem5 = this.initBubble();
+    var elem6 = this.initBubble();
+    var elem7 = this.initBubble();
+    var elem8 = this.initBubble();
+    var elem9 = this.initBubble();
+
+    this.bubble.push(elem, elem1, elem2, elem3, elem4, elem5, elem6, elem7, elem8, elem9);
+    console.log(this.bubble);
   }
 
   tick(){
     const time = setInterval(() => {
-      this.ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-      this.ctx.beginPath();
       if (this.count < 120){
         this.count++;
 
@@ -67,7 +73,8 @@ export class AppComponent implements OnInit{
             size: this.bubble[i].size,
             color: this.bubble[i].color,
             rnod: this.bubble[i].rnod - 1,
-            cnod: this.bubble[i].cnod + 1
+            cnod: this.bubble[i].cnod + 1,
+            d: 'M ' + this.bubble[i].posx + ' ' + this.bubble[i].posy + 'a ' + this.bubble[i].size + ',' + this.bubble[i].size + ' 0 1,0 ' + this.bubble[i].size*2 + ', 0' + ' a ' + this.bubble[i].size + ',' + this.bubble[i].size + ' 0 1,0 ' + -this.bubble[i].size*2 + ', 0'
           }
         }
       } else {
@@ -76,6 +83,7 @@ export class AppComponent implements OnInit{
     }, 1000/6);
   }
 
+  
 }
 
 export interface bubbles{
@@ -85,4 +93,5 @@ export interface bubbles{
   color: any;
   rnod: any;
   cnod: any;
+  d: any;
 }
