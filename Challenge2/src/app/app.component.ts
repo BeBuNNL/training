@@ -10,35 +10,35 @@ export class AppComponent implements OnInit{
   title = 'Challenge2';
   @ViewChild('classParent', {static: true}) innerHeight: ElementRef<HTMLDivElement>
   @ViewChild('classParent', {static: true}) innerWidth: ElementRef<HTMLDivElement>
-  @HostListener('window:keypress',['$event'])
+  @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent){
     console.log(event);
     setTimeout(() => {
       if (event.keyCode === KEY.ALT_CODE){
-        this.score += 2;
-        return true;
+        this.altState = true;
+        return this.altState;
       }
     }, 2000);
   }
+  public altState: boolean = false;
   public bubbles: bubble[] = [];
   public count: number;
   public width: number;
   public height: number;
-  public rand: number;
   public score: number = 0;
   public initBubble(){
     let bub: bubble;
-    this.rand = Math.random();
     bub = {
       size: Math.floor(Math.random()*100),
       health: Math.round(Math.random()*100)/10,
-      rnod: Math.floor(this.rand*360),
+      rnod: Math.floor(Math.random()*360),
       cnod: Math.floor(Math.random()*30),
       d: ''
     }
-    bub.d = 'M ' + bub.rnod/360*this.width + ' ' + bub.cnod/30*this.height + 'a ' 
-    + bub.size + ',' + bub.size + ' 0 1,0 ' + bub.size*2 + ', 0' 
-    + ' a ' + bub.size + ',' + bub.size + ' 0 1,0 ' + -bub.size*2 + ', 0'; 
+    bub.d = 'M ' + bub.rnod/360*this.width + ',' + bub.cnod/30*this.height + ' a ' 
+    + bub.size + ',' + bub.size + ' 0 1,0 ' + bub.size*2 + ',0' 
+    + ' a ' + bub.size + ',' + bub.size + ' 0 1,0 ' + -bub.size*2 + ',0'; 
+    console.log(bub.rnod + ' ' + bub.cnod);
     return bub;
   };
 
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit{
     this.width = this.innerWidth.nativeElement.clientWidth;
     this.count = 0;
     for (let i=0; i<10;i++){
-      var elem = this.initBubble();
+      let elem = this.initBubble();
       this.bubbles.push(elem);
     }
   }
@@ -63,12 +63,14 @@ export class AppComponent implements OnInit{
     }
   }
 
+  getrnod(x: bubble){
+    return x.rnod;
+  }
+
   tick(){
     const time = setInterval(() => {
       if (this.bubbles.length != 0 && this.count < 120){
         this.count++;
-        //console.log(this.count);
-        //console.log(this.bubbles.length);
         for (let i = 0; i < this.bubbles.length; i++){
           if (this.bubbles[i].cnod > 30 || this.bubbles[i].rnod < 0){
             this.bubbles.splice(i,1);
@@ -83,16 +85,18 @@ export class AppComponent implements OnInit{
             cnod: this.bubbles[i].cnod + 1,
             d: this.bubbles[i].d
           }
-          this.bubbles[i].d = 'M ' + ((this.bubbles[i].rnod+this.count*2)/360*this.width) 
-            + ' ' + this.bubbles[i].cnod/30*this.height 
-            + 'a ' + this.bubbles[i].size + ',' + this.bubbles[i].size 
-            + ' 0 1,0 ' + this.bubbles[i].size*2 + ', 0' + ' a ' + this.bubbles[i].size 
-            + ',' + this.bubbles[i].size + ' 0 1,0 ' + -this.bubbles[i].size*2 + ', 0';
+          this.bubbles[i].d = 'M ' + (this.getrnod(this.bubbles[i])*this.width/360 + this.count*(this.width/360)*2) 
+            + ',' + (this.bubbles[i].cnod*this.height/30)
+            + ' a ' + this.bubbles[i].size + ',' + this.bubbles[i].size 
+            + ' 0 1,0 ' + this.bubbles[i].size*2 + ',0' + ' a ' + this.bubbles[i].size 
+            + ',' + this.bubbles[i].size + ' 0 1,0 ' + -this.bubbles[i].size*2 + ',0';
           if (this.bubbles[i].health > 10){
             this.bubbles[i].health = 10;
           }
-          this.score += this.bubbles.length;
-          console.log(this.bubbles[i]);
+          this.score += this.bubbles[i].size;
+          //console.log(this.count);
+          //console.log((this.getrnod(this.bubbles[i])+this.count*2)*this.width/360 + this.width/360);
+          //console.log(this.bubbles[i]);
         }
       } else {
         clearInterval(time);
@@ -101,10 +105,10 @@ export class AppComponent implements OnInit{
   }
 
   svgClick(x: bubble){
-    if (this.onAltdown(event)){
+    if (this.altState === true){
+      this.altState = false;
       x.cnod = 0;
       x.health += 3;
-      this.score += 3;
       setTimeout(() => {
         for (let i = 0; i < this.bubbles.length; i++){
           this.bubbles[i].health += Math.floor(Math.random()*5);
@@ -113,9 +117,8 @@ export class AppComponent implements OnInit{
     }
   }
 
-  onAltdown(event){
-    //console.log(event);
-    return true;
+  refresh(): void{
+    window.location.reload();
   }
 }
 

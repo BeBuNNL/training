@@ -1,5 +1,4 @@
 <div #classParent>
-    
   <svg [attr.width]="width" [attr.height]="height">
     <svg *ngFor="let bub of bubbles" (click)="svgClick(bub)">
       <path [attr.d]="bub.d" [attr.fill]="getColor(bub)"></path>
@@ -9,6 +8,7 @@
 
 <span>
     <button type="button" (click)="tick()">Play</button>
+    <button type="button" (click)="refresh()">Re-play</button>
     <span>Score: {{score}}</span>
 </span>
 
