@@ -1,7 +1,7 @@
 <div>
   <svg width="1080" height="600">
-    <svg [attr.id]="bub.index" *ngFor="let bub of bubble">
-      <path [attr.d]="bub.d" [attr.fill]="bub.color"></path>
+    <svg *ngFor="let bub of bubble" (click)="svgClick(bub)">
+      <path id="{{bub.index}}" [attr.d]="bub.d" [attr.fill]="bub.color"></path>
     </svg>
   </svg>
 </div>

@@ -55,7 +55,7 @@ export class AppComponent implements OnInit{
 
   tick(){
     const time = setInterval(() => {
-      if (this.count < 120){
+      if (this.count < 720){
         this.count++;
 
         for (let i = 0; i < 10; i++){
@@ -83,7 +83,10 @@ export class AppComponent implements OnInit{
     }, 1000/6);
   }
 
-  
+  svgClick(x: bubbles){
+    x.cnod = 0;
+    x.posy = 0;
+  }
 }
 
 export interface bubbles{
