@@ -1,6 +1,8 @@
 div{
     background-color: #00aabb;
-    width: 1080px;
-    height: 600px;
+    min-height: 600px;
+    min-width: 1080px;
+    width: auto;
+    height: auto;
 }
 

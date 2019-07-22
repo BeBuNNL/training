@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { getCurrencySymbol } from '@angular/common';
-declare var $: any;
+import { viewClassName } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -9,72 +8,76 @@ declare var $: any;
 })
 export class AppComponent implements OnInit{
   title = 'Challenge2';
-
-  public bubble: bubbles[] = [];
+  @ViewChild('classParent', {static: true}) innerHeight: ElementRef<HTMLDivElement>
+  @ViewChild('classParent', {static: true}) innerWidth: ElementRef<HTMLDivElement>
+  public bubbles: bubble[] = [];
   public count: number;
+  public width: number;
+  public height: number;
+  public rand: number;
   public initBubble(){
-    let bub: bubbles;
-    let xr = Math.random();
-    let xy = Math.random();
+    let bub: bubble;
+    this.rand = Math.random();
     bub = {
-      posx: Math.floor(xr*1080),
-      posy: Math.floor(xy*600),
       size: Math.floor(Math.random()*100),
-      color: Math.round(Math.random()*100)/10,
-      rnod: Math.floor(xr*360),
-      cnod: Math.floor(xy*30),
+      health: Math.round(Math.random()*100)/10,
+      rnod: Math.floor(this.rand*360),
+      cnod: Math.floor(Math.random()*30),
       d: ''
     }
-    if (bub.color > 7.5){
-      bub.color = 'green';
-    } else if (bub.color < 3.5){
-      bub.color = 'red';
-    } else {
-      bub.color = 'yellow';
-    }
-    bub.d = 'M ' + bub.posx + ' ' + bub.posy + 'a ' + bub.size + ',' + bub.size + ' 0 1,0 ' + bub.size*2 + ', 0' + ' a ' + bub.size + ',' + bub.size + ' 0 1,0 ' + -bub.size*2 + ', 0'; 
+    bub.d = 'M ' + bub.rnod/360*this.width + ' ' + bub.cnod/30*this.height + 'a ' 
+    + bub.size + ',' + bub.size + ' 0 1,0 ' + bub.size*2 + ', 0' 
+    + ' a ' + bub.size + ',' + bub.size + ' 0 1,0 ' + -bub.size*2 + ', 0'; 
     return bub;
   };
   
   ngOnInit(): void{
+    this.height = this.innerHeight.nativeElement.clientHeight;
+    this.width = this.innerWidth.nativeElement.clientWidth;
+    console.log(this.width+' '+this.height);
     this.count = 0;
-    var elem = this.initBubble();
-    var elem1 = this.initBubble();
-    var elem2 = this.initBubble();
-    var elem3 = this.initBubble();
-    var elem4 = this.initBubble();
-    var elem5 = this.initBubble();
-    var elem6 = this.initBubble();
-    var elem7 = this.initBubble();
-    var elem8 = this.initBubble();
-    var elem9 = this.initBubble();
+    for (let i=0; i<10;i++){
+      var elem = this.initBubble();
+      this.bubbles.push(elem);
+    }
+  }
 
-    this.bubble.push(elem, elem1, elem2, elem3, elem4, elem5, elem6, elem7, elem8, elem9);
-    console.log(this.bubble);
+  getColor(x: bubble){
+    if(x.health > 7.5){
+      return 'green';
+    }
+    else if (x.health < 3.5){
+      return 'red';
+    }else{
+      return 'yellow';
+    }
   }
 
   tick(){
     const time = setInterval(() => {
-      if (this.count < 120){
+      if (this.bubbles.length != 0 && this.count < 120){
         this.count++;
-
+        console.log(this.count);
+        console.log(this.bubbles.length);
         for (let i = 0; i < 10; i++){
-          if (this.bubble[i].posx > 1080){
-            this.bubble[i].posx = 0;
-            this.bubble[i].rnod = 360;
+          if (this.bubbles[i].rnod/360*this.width > 1080){
+            this.bubbles[i].rnod = 360;
+            this.bubbles[i].rnod/360*this.width;
           }
-          if (this.bubble[i].posy > 600){
-            this.bubble.splice(i,1);
+          if (this.bubbles[i].cnod/30*this.height > 600){
+            this.bubbles.splice(i,1);
           }
-          this.bubble[i] = {
-            posx: this.bubble[i].posx + 3,
-            posy: this.bubble[i].posy + 20,
-            size: this.bubble[i].size,
-            color: this.bubble[i].color,
-            rnod: this.bubble[i].rnod - 1,
-            cnod: this.bubble[i].cnod + 1,
-            d: 'M ' + this.bubble[i].posx + ' ' + this.bubble[i].posy + 'a ' + this.bubble[i].size + ',' + this.bubble[i].size + ' 0 1,0 ' + this.bubble[i].size*2 + ', 0' + ' a ' + this.bubble[i].size + ',' + this.bubble[i].size + ' 0 1,0 ' + -this.bubble[i].size*2 + ', 0'
+          this.bubbles[i] = {
+            size: this.bubbles[i].size,
+            health: this.bubbles[i].health,
+            rnod: this.bubbles[i].rnod - 1,
+            cnod: this.bubbles[i].cnod + 1,
+            d: this.bubbles[i].d
           }
+          this.bubbles[i].d = 'M ' + ((this.bubbles[i].rnod+this.count*2)/360*this.width) + ' ' + this.bubbles[i].cnod/30*this.height 
+            + 'a ' + this.bubbles[i].size + ',' + this.bubbles[i].size 
+            + ' 0 1,0 ' + this.bubbles[i].size*2 + ', 0' + ' a ' + this.bubbles[i].size 
+            + ',' + this.bubbles[i].size + ' 0 1,0 ' + -this.bubbles[i].size*2 + ', 0';
         }
       } else {
         clearInterval(time);
@@ -82,17 +85,14 @@ export class AppComponent implements OnInit{
     }, 1000/6);
   }
 
-  svgClick(x: bubbles){
+  svgClick(x: bubble){
     x.cnod = 0;
-    x.posy = 0;
   }
 }
 
-export interface bubbles{
-  posx: any;
-  posy: any;
+export interface bubble{
   size: any;
-  color: any;
+  health: any;
   rnod: any;
   cnod: any;
   d: any;
