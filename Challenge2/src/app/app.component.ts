@@ -11,12 +11,12 @@ export class AppComponent implements OnInit{
   title = 'Challenge2';
 
   public bubble: bubbles[] = [];
-  public bub: bubbles;
   public count: number;
   public initBubble(){
+    let bub: bubbles;
     let xr = Math.random();
     let xy = Math.random();
-    this.bub = {
+    bub = {
       posx: Math.floor(xr*1080),
       posy: Math.floor(xy*600),
       size: Math.floor(Math.random()*100),
@@ -25,15 +25,15 @@ export class AppComponent implements OnInit{
       cnod: Math.floor(xy*30),
       d: ''
     }
-    if (this.bub.color > 7.5){
-      this.bub.color = 'green';
-    } else if (this.bub.color < 3.5){
-      this.bub.color = 'red';
+    if (bub.color > 7.5){
+      bub.color = 'green';
+    } else if (bub.color < 3.5){
+      bub.color = 'red';
     } else {
-      this.bub.color = 'yellow';
+      bub.color = 'yellow';
     }
-    this.bub.d = 'M ' + this.bub.posx + ' ' + this.bub.posy + 'a ' + this.bub.size + ',' + this.bub.size + ' 0 1,0 ' + this.bub.size*2 + ', 0' + ' a ' + this.bub.size + ',' + this.bub.size + ' 0 1,0 ' + -this.bub.size*2 + ', 0'; 
-    return this.bub;
+    bub.d = 'M ' + bub.posx + ' ' + bub.posy + 'a ' + bub.size + ',' + bub.size + ' 0 1,0 ' + bub.size*2 + ', 0' + ' a ' + bub.size + ',' + bub.size + ' 0 1,0 ' + -bub.size*2 + ', 0'; 
+    return bub;
   };
   
   ngOnInit(): void{
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit{
 
   tick(){
     const time = setInterval(() => {
-      if (this.count < 720){
+      if (this.count < 120){
         this.count++;
 
         for (let i = 0; i < 10; i++){
@@ -64,8 +64,7 @@ export class AppComponent implements OnInit{
             this.bubble[i].rnod = 360;
           }
           if (this.bubble[i].posy > 600){
-            this.bubble[i].posy = 0;
-            this.bubble[i].cnod = 0;
+            this.bubble.splice(i,1);
           }
           this.bubble[i] = {
             posx: this.bubble[i].posx + 3,
