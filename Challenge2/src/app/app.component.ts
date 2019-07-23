@@ -109,9 +109,9 @@ export class AppComponent implements OnInit{
   }
 
   svgClick(x: bubble){
+    x.cnod = 0;
     if (this.altState === true){
       this.altState = false;
-      x.cnod = 0;
       x.health += 3;
       setTimeout(() => {
         for (let i = 0; i < this.bubbles.length; i++){
