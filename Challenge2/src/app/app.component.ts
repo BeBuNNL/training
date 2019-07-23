@@ -72,18 +72,15 @@ export class AppComponent implements OnInit{
       if (this.bubbles.length != 0 && this.count < 120){
         this.count++;
         for (let i = 0; i < this.bubbles.length; i++){
-          if (this.bubbles[i].cnod > 30 || this.bubbles[i].rnod < 0){
+          if (this.bubbles[i].cnod > 30 || (this.bubbles[i].rnod < 0 && this.bubbles[i].health < 3.5)){
             this.bubbles.splice(i,1);
-          }
-          if (this.bubbles[i].rnod < 0 && this.bubbles[i].health < 3.5){
-            this.bubbles.splice(i,1);   
           }
           this.bubbles[i] = {
             size: this.bubbles[i].size,
             health: this.bubbles[i].health - Math.floor(Math.random()*2),
             rnod: this.bubbles[i].rnod - 1,
             cnod: this.bubbles[i].cnod + 1,
-            d: this.bubbles[i].d
+            d: ''
           }
           if (this.bubbles[i].health > 10){
             this.bubbles[i].health = 10;
