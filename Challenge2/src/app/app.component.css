@@ -1,3 +1,8 @@
-canvas{
+div{
     background-color: #00aabb;
+    min-height: 100vh;
+    min-width: 100vh;
+    width: auto;
+    height: auto;
 }
+
