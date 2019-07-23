@@ -12,7 +12,7 @@ export class AppComponent implements OnInit{
   @ViewChild('classParent', {static: true}) innerWidth: ElementRef<HTMLDivElement>
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent){
-    console.log(event);
+    //console.log(event);
     setTimeout(() => {
       if (event.keyCode === KEY.ALT_CODE){
         this.altState = true;
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit{
       cnod: Math.floor(Math.random()*30),
       d: ''
     }
-    bub.d = 'M ' + bub.rnod/360*this.width + ',' + bub.cnod/30*this.height + ' a ' 
+    bub.d = 'M ' + ((360 - bub.rnod)*this.width)/360 + ',' + bub.cnod/30*this.height + ' a ' 
     + bub.size + ',' + bub.size + ' 0 1,0 ' + bub.size*2 + ',0' 
     + ' a ' + bub.size + ',' + bub.size + ' 0 1,0 ' + -bub.size*2 + ',0'; 
     console.log(bub.rnod + ' ' + bub.cnod);
@@ -85,18 +85,19 @@ export class AppComponent implements OnInit{
             cnod: this.bubbles[i].cnod + 1,
             d: this.bubbles[i].d
           }
-          this.bubbles[i].d = 'M ' + (this.getrnod(this.bubbles[i])*this.width/360 + this.count*(this.width/360)*2) 
+          if (this.bubbles[i].health > 10){
+            this.bubbles[i].health = 10;
+          }
+          // this.bubbles[i].d = 'M ' + (this.getrnod(this.bubbles[i])*this.width/360 + this.count*(this.width/360)*2)
+          this.bubbles[i].d = 'M ' + ((360 - this.bubbles[i].rnod)*this.width)/360
             + ',' + (this.bubbles[i].cnod*this.height/30)
             + ' a ' + this.bubbles[i].size + ',' + this.bubbles[i].size 
             + ' 0 1,0 ' + this.bubbles[i].size*2 + ',0' + ' a ' + this.bubbles[i].size 
             + ',' + this.bubbles[i].size + ' 0 1,0 ' + -this.bubbles[i].size*2 + ',0';
-          if (this.bubbles[i].health > 10){
-            this.bubbles[i].health = 10;
-          }
           this.score += this.bubbles[i].size;
           //console.log(this.count);
           //console.log((this.getrnod(this.bubbles[i])+this.count*2)*this.width/360 + this.width/360);
-          //console.log(this.bubbles[i]);
+          console.log(this.bubbles[i]);
         }
       } else {
         clearInterval(time);

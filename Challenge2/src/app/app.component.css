@@ -1,7 +1,7 @@
 div{
     background-color: #00aabb;
-    min-height: 600px;
-    min-width: 1080px;
+    min-height: 100vh;
+    min-width: 100vh;
     width: auto;
     height: auto;
 }
