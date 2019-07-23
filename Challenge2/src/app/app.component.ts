@@ -38,7 +38,7 @@ export class AppComponent implements OnInit{
     bub.d = 'M ' + ((360 - bub.rnod)*this.width)/360 + ',' + bub.cnod/30*this.height + ' a ' 
     + bub.size + ',' + bub.size + ' 0 1,0 ' + bub.size*2 + ',0' 
     + ' a ' + bub.size + ',' + bub.size + ' 0 1,0 ' + -bub.size*2 + ',0'; 
-    console.log(bub.rnod + ' ' + bub.cnod);
+    console.log(bub.rnod + ' ' + bub.cnod + ' ' + bub.size);
     return bub;
   };
 
@@ -72,7 +72,13 @@ export class AppComponent implements OnInit{
       if (this.bubbles.length != 0 && this.count < 120){
         this.count++;
         for (let i = 0; i < this.bubbles.length; i++){
-          if (this.bubbles[i].cnod > 30 || (this.bubbles[i].rnod < 0 && this.bubbles[i].health < 3.5)){
+          if (this.bubbles[i].cnod > 30){
+            this.bubbles.splice(i,1);
+          }
+          if(this.bubbles[i].rnod < 0){
+            if (this.bubbles[i].health < 3.5){
+              this.bubbles.splice(i,1);
+            }
             this.bubbles.splice(i,1);
           }
           this.bubbles[i] = {
