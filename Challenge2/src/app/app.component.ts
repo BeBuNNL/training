@@ -88,7 +88,7 @@ export class AppComponent implements OnInit{
             cnod: this.bubbles[i].cnod + 1,
             d: ''
           }
-          if (this.bubbles[i].health > 10){
+          if (this.bubbles[i].health >= 10){
             this.bubbles[i].health = 10;
           }
           // this.bubbles[i].d = 'M ' + (this.getrnod(this.bubbles[i])*this.width/360 + this.count*(this.width/360)*2)
