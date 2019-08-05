@@ -29,4 +29,8 @@ export class ProductDetailComponent implements OnInit {
   gotoProducts(){
     this.router.navigate(['/product']);
   }
+
+  addtoCart(productx: product){
+    this.router.navigate(['/addtocart', productx.name, 12]);
+  }
 }

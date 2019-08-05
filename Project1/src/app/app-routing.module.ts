@@ -11,8 +11,9 @@ const routes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'cart', component: CartComponent},
-  {path: 'product', component: ProductComponent},
-  {path: 'product/:key', component: ProductDetailComponent}
+  {path: 'product', redirectTo: ''},
+  {path: 'product/:key', component: ProductDetailComponent},
+  {path: 'addtocart/:key/:sl', component: CartComponent}
 ];
 
 @NgModule({
