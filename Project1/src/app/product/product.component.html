@@ -1,0 +1,11 @@
+<ul>
+    <li *ngFor="let product of products$ | async" [class.selected]="product.name === selectedProduct">
+        <a [routerLink]="[ '/product', product.name ]">
+            <span>{{product.name}} {{product.price}} {{product.price - (product.price * product.discount / 100) | number}}</span>
+        </a>
+    </li>
+</ul>
+
+<div *ngIf="selectedProduct">
+
+</div>
