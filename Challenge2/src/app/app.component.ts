@@ -105,7 +105,7 @@ export class AppComponent implements OnInit{
       } else {
         clearInterval(time);
       }
-    }, 1000/6);
+    }, 2000/6);
   }
 
   svgClick(x: bubble){
