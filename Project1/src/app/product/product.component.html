@@ -1,7 +1,36 @@
 <ul>
-    <li *ngFor="let product of products$ | async" [class.selected]="product.name === selectedProduct">
-        <a [routerLink]="[ '/product', product.name ]">
-            <span>{{product.name}} {{product.price}} {{product.price - (product.price * product.discount / 100) | number}}</span>
-        </a>
-    </li>
+  <li *ngFor="let product of products$ | async" [class.selected]="product.name === selectedProduct">
+    <a [routerLink]="[ '/product', product.name ]">
+      <span>123 {{product.name}} {{product.price}}
+        {{product.price - (product.price * product.discount / 100) | number}}</span>
+    </a>
+  </li>
 </ul>
+
+<div id="carouselExampleControls" class="carousel slide container-fluid">
+  <div class="carousel-inner">
+    <div class="carousel-item" *ngFor="let product of products$ | async; let i = index" [class.active]="i == 0">
+      <img class="d-block w-100" src="{{imgUrl}}"><!---->
+      <div class="carousel-caption d-sm-block">
+        <h3>{{product.name}}</h3>
+        <p>{{product.price}}$ {{product.desc}}</p>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<div *ngFor="let hotprod of hotProducts$ | async">
+  <span>hot {{hotprod.name}}</span>
+</div>
+
+<div *ngFor="let bsprod of bestsaleProducts$ | async">
+  <span>bs {{bsprod.name}}</span>
+</div>

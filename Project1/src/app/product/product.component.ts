@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PRODUCTS, product } from '../app.component'
 import { Observable } from 'rxjs'
-import { switchMap } from 'rxjs/operators'
+import { switchMap, filter } from 'rxjs/operators'
 import { ActivatedRoute } from '@angular/router'
 import { ProductService } from '../product.service'
 
@@ -14,8 +14,10 @@ export class ProductComponent implements OnInit {
 
   // products = PRODUCTS;
   products$: Observable<product[]>;
+  hotProducts$: Observable<product[]>;
+  bestsaleProducts$: Observable<product[]>;
   selectedProduct: string;
-
+  imgUrl = 'https://www.w3schools.com/bootstrap/la.jpg';
   constructor(
     private route: ActivatedRoute,
     private service: ProductService
@@ -26,6 +28,18 @@ export class ProductComponent implements OnInit {
       switchMap(x=>{
         this.selectedProduct = x.get('name');
         return this.service.getProducts();
+      })
+    ),
+    
+    this.hotProducts$ = this.route.paramMap.pipe(
+      switchMap(()=>{
+        return this.service.gethotProduct();
+      })
+    ),
+
+    this.bestsaleProducts$ = this.route.paramMap.pipe(
+      switchMap(()=>{
+        return this.service.getbestsaleProduct();
       })
     )
   }

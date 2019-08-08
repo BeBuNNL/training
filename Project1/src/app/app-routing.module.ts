@@ -11,13 +11,15 @@ const routes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'cart', component: CartComponent},
-  {path: 'product', redirectTo: ''},
+  // {path: 'product', redirectTo: ''},
+  {path: 'product', component: ProductComponent},
   {path: 'product/:key', component: ProductDetailComponent},
-  {path: 'addtocart/:key/:sl', component: CartComponent}
+  {path: 'addtocart', component: CartComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

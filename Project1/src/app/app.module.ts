@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

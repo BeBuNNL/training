@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,  FormControl, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 const control = new FormControl('', { updateOn: 'blur' });
 
@@ -12,8 +13,11 @@ export class LoginComponent implements OnInit {
   fLogin: FormGroup;
   emailInp: FormControl;
   pwdInp: FormControl;
+  cookieValue = 'UNKNOWN';
 
-  constructor() { }
+  constructor(
+    private cookieService: CookieService
+  ) { }
 
   ngOnInit() {
     this.emailInp = new FormControl('', Validators.compose([
@@ -30,4 +34,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  onSubmit(){
+    console.log(this.emailInp.value, this.pwdInp.value);
+    this.cookieService.set('TestEmail', this.emailInp.value);
+    this.cookieService.set('TestPwd', this.pwdInp.value);
+    let test = this.cookieService.get('TestEmail');
+    console.log('test: ', test);
+  }
 }

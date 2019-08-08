@@ -30,7 +30,7 @@ export class ProductDetailComponent implements OnInit {
     this.router.navigate(['/product']);
   }
 
-  addtoCart(productx: product){
-    this.router.navigate(['/addtocart', productx.name, 12]);
+  addtoCart(productx: product, x: number){
+    this.router.navigate(['/addtocart'], {queryParams: {pd: productx.name, 'ns': x}});
   }
 }
