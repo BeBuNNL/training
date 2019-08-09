@@ -14,8 +14,6 @@ export class ProductComponent implements OnInit {
 
   // products = PRODUCTS;
   products$: Observable<product[]>;
-  hotProducts$: Observable<product[]>;
-  bestsaleProducts$: Observable<product[]>;
   selectedProduct: string;
   imgUrl = 'https://www.w3schools.com/bootstrap/la.jpg';
   constructor(
@@ -28,18 +26,6 @@ export class ProductComponent implements OnInit {
       switchMap(x=>{
         this.selectedProduct = x.get('name');
         return this.service.getProducts();
-      })
-    ),
-    
-    this.hotProducts$ = this.route.paramMap.pipe(
-      switchMap(()=>{
-        return this.service.gethotProduct();
-      })
-    ),
-
-    this.bestsaleProducts$ = this.route.paramMap.pipe(
-      switchMap(()=>{
-        return this.service.getbestsaleProduct();
       })
     )
   }

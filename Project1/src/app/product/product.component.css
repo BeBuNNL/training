@@ -1,0 +1,15 @@
+div.card p.price{
+    visibility: hidden;
+}
+
+div.card:hover p.price{
+    visibility: visible;
+}
+
+div.card a{
+    visibility: hidden;
+}
+
+div.card:hover a{
+    visibility: visible;
+}

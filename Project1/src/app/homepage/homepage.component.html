@@ -1,3 +1,63 @@
 <app-navbar></app-navbar>
-<app-product></app-product>
+<!-- <app-product></app-product> -->
+<h2 class="text-center mt-5 mb-3">TOP 5 Hot Product</h2>
+<div id="carouselExampleControls" class="carousel slide container-fluid">
+  <div class="carousel-inner">
+    <div class="carousel-item" *ngFor="let hotproduct of hotProducts$ | async; let i = index" [class.active]="i == 0">
+      <!-- <img class="d-block w-100" src="{{imgUrl}}">
+      <div class="carousel-caption d-sm-block">
+        <h3>{{hotproduct.name}}</h3>
+        <p>{{hotproduct.price}}$ {{hotproduct.desc}}</p>
+      </div> -->
+      <div class="card text-center text-white">
+        <img class="card-img-top" src="{{imgUrl}}">
+        <div class="card-img-overlay d-flex flex-column justify-content-end">
+          <h3 class="card-title">{{hotproduct.name}}</h3>
+          <p class="card-text">{{hotproduct.desc}}</p>
+          <p class="price">{{hotproduct.price}}$</p>
+          <a [routerLink]="[ '/product', hotproduct.name ]" class="btn btn-primary">Add to card</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<h2 class="text-center mt-5 mb-3">TOP 5 Best sale Product</h2>
+<div id="carouselExampControls" class="carousel slide container-fluid">
+  <div class="carousel-inner">
+    <div class="carousel-item" *ngFor="let bsproduct of bestsaleProducts$ | async; let i = index"
+      [class.active]="i == 0">
+      <!-- <img class="d-block w-100" src="{{imgUrl}}">
+      <div class="carousel-caption d-sm-block">
+        <h3>{{bsproduct.name}}</h3>
+        <p>{{bsproduct.price}}$ {{bsproduct.desc}}</p>
+      </div> -->
+      <div class="card text-center text-white">
+        <img class="card-img-top" src="{{imgUrl}}">
+        <div class="card-img-overlay d-flex flex-column justify-content-end">
+          <h3 class="card-title">{{bsproduct.name}}</h3>
+          <p class="card-text">{{bsproduct.desc}}</p>
+          <p class="price">{{bsproduct.price}}$</p>
+          <a [routerLink]="[ '/product', bsproduct.name ]" class="btn btn-primary">Add to card</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 <app-footer></app-footer>
