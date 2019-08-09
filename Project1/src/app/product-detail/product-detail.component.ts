@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ProductService } from '../product.service';
 import { Observable } from 'rxjs';
 import { product } from '../app.component';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, pluck, map } from 'rxjs/operators';
 
 
 @Component({
@@ -12,7 +12,9 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
+  imgUrl = 'https://www.w3schools.com/bootstrap/la.jpg';
   product$: Observable<product>;
+  selectedVote: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +26,10 @@ export class ProductDetailComponent implements OnInit {
     this.product$ = this.route.paramMap.pipe(
       switchMap((x: ParamMap)=>this.service.getProduct(x.get('key')))
     );
+
+    this.selectedVote = this.product$.pipe(
+      map(x=>{return x.vote})
+    ).subscribe(console.log)
   }
 
   gotoProducts(){

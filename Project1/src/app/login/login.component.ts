@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   emailInp: FormControl;
   pwdInp: FormControl;
   cookieValue = 'UNKNOWN';
+  name: string[];
 
   constructor(
     private cookieService: CookieService
@@ -36,9 +37,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     console.log(this.emailInp.value, this.pwdInp.value);
-    this.cookieService.set('TestEmail', this.emailInp.value);
-    this.cookieService.set('TestPwd', this.pwdInp.value);
-    let test = this.cookieService.get('TestEmail');
-    console.log('test: ', test);
+    this.cookieService.set('Email', this.emailInp.value);
+    this.cookieService.set('Pwd', this.pwdInp.value);
+    let test = this.cookieService.get('Email');
+    this.name = test.split('@');
+    this.cookieService.set('Name', this.name[0]);
+    console.log(this.name);
+    console.log(this.cookieService.get('Name'));
   }
 }

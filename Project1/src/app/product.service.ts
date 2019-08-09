@@ -26,7 +26,7 @@ export class ProductService {
       tap(x=>x),
       map((product: product[])=>product.filter(product => product.hot === 1)),
       mergeAll(),
-      take(6),
+      take(5),
       toArray()
     );
   }
@@ -36,7 +36,7 @@ export class ProductService {
       tap(x=>x),
       map((product: product[])=>product.sort((a,b)=>b.cop-a.cop)),
       mergeAll(),
-      take(6),
+      take(5),
       toArray()
     ); 
   }
