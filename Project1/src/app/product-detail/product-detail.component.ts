@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ProductService } from '../product.service';
-import { Observable } from 'rxjs';
+import { Observable, fromEvent } from 'rxjs';
 import { product } from '../app.component';
 import { switchMap, map, tap, mapTo, scan } from 'rxjs/operators';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,6 +17,8 @@ export class ProductDetailComponent implements OnInit {
   countSP: any;
   data: any;
   nameUser: any;
+  count: number = 0;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -42,12 +43,20 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    // let addEv = document.getElementById('add');
-    // let subEv = document.getElementById('sub');
-    // fromEvent(addEv, 'click').pipe(
-    //   scan(count=>count+1,0)
-    // ).subscribe();
-    // console.log(this.countSP);
+    let addEv = document.getElementById('add');
+    let subEv = document.getElementById('sub');
+    let out = document.getElementById('out');
+    fromEvent(addEv, 'click').pipe(
+    ).subscribe(x=>{
+      this.count += 1;
+      out.innerHTML = this.count.toString()
+    });
+
+    fromEvent(subEv, 'click').pipe(
+    ).subscribe(x=>{
+      this.count += -1;
+      out.innerHTML = this.count.toString()
+    });
   }
 
   gotoProducts(){
