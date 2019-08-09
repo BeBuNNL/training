@@ -13,8 +13,16 @@
             <h2>{{prod.name}}</h2>
             <p>{{prod.desc}}</p>
           </div>
-          <p>{{prod.price}}</p>
+          <p>Price: {{prod.price}}</p>
+          <p>Discount: {{prod.discount}}</p>
+          <p>New price: {{prod.price - prod.price*prod.discount}}</p>
           <p>Vote: {{prod.vote}}</p>
+          <div class="d-inline">
+            <button id="sub">-</button>
+            <span id="out">{{countSP}}</span>
+            <button id="add">+</button>
+          </div>
+          <br>
           <span class="fa fa-star check" *ngFor="let item of [0,1,2,3,4], let i = index"></span>
           <br>
           <button (click)="gotoProducts()">Back</button>
