@@ -8,15 +8,16 @@
   </li>
 </ul> -->
 
-<div id="carouselExampleControls" class="carousel slide container-fluid">
+<div id="carouselExampleControls" class="carousel slide">
   <div class="carousel-inner">
-    <div class="carousel-item" *ngFor="let product of products$ | async; let i = index" [class.active]="i == 0">
+    <div class="carousel-item" *ngFor="let item of [0,1,2,3,4]; let i = index" [class.active]="i == 0">
+    <!-- <div class="carousel-item" *ngFor="let product of products$ | async; let i = index" [class.active]="i == 0"> -->
       <!-- <img class="d-block w-100" src="{{imgUrl}}">
       <div class="carousel-caption d-sm-block">
         <h3>{{hotproduct.name}}</h3>
         <p>{{hotproduct.price}}$ {{hotproduct.desc}}</p>
       </div> -->
-      <div class="card text-center text-white">
+      <!-- <div class="card text-center text-white">
         <img class="card-img" src="{{imgUrl}}">
         <div class="card-img-overlay d-flex flex-column justify-content-end">
           <h3 class="card-title">{{product.name}}</h3>
@@ -24,7 +25,8 @@
           <p class="price">{{product.price}}$</p>
           <a [routerLink]="[ '/product', product.name ]" class="btn btn-primary">Add to card</a>
         </div>
-      </div>
+      </div> -->
+      <img class="card-img" src="{{imgUrl}}" height="300">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -36,6 +38,27 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+
+<h2 class="mt-4 text-center">Sản phẩm của chúng tôi</h2>
+<owl-carousel-o [options]="customOptions">
+    <ng-template carouselSlide *ngFor="let product of products$ | async; let i = index">
+      <div class="card text-center mt-4">
+        <img class="card-img" src="{{imgUrl}}">
+        <div class="card-img-overlay">
+          <span class="btn card-img-overlay">
+            <a [routerLink]="[ '/product', product.name ]" class="btn btn-outline-light">View details</a>
+          </span>
+            <!-- <a [routerLink]="[ '/product', product.name ]" class="btn card-img-overlay">
+              <span class="btn btn-outline-light">View details</span>
+            </a> -->
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{product.name}}</h3>
+          <p class="card-text">{{product.desc}}</p>
+        </div>
+      </div>
+    </ng-template>
+  </owl-carousel-o>
 <app-footer></app-footer>
 
 <!-- <div id="carouselExampleControls" class="carousel slide container-fluid">
@@ -65,3 +88,26 @@
 <div *ngFor="let bsprod of bestsaleProducts$ | async">
   <span>bs {{bsprod.name}}</span>
 </div> -->
+
+<!-- <div class="owl-carousel owl-theme owl-loaded">
+  <div class="owl-stage-outer">
+      <div class="owl-stage">
+          <div class="owl-item" *ngFor="let product of products$ | async; let i = index" [class.active]="i == 0">
+            <div class="card text-center text-white">
+              <img class="card-img" src="{{imgUrl}}">
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <h3 class="card-title">{{product.name}}</h3>
+                <p class="card-text">{{product.desc}}</p>
+                <p class="price">{{product.price}}$</p>
+                <a [routerLink]="[ '/product', product.name ]" class="btn btn-primary">Add to card</a>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+  <div class="owl-nav">
+      <div class="owl-prev">prev</div>
+      <div class="owl-next">next</div>
+  </div>
+</div> -->
+

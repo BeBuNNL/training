@@ -23,7 +23,7 @@ export class ProductService {
 
   gethotProduct() {
     return this.getProducts().pipe(
-      tap(x=>x),
+      //tap(x=>x),
       map((product: product[])=>product.filter(product => product.hot === 1)),
       mergeAll(),
       take(5),
@@ -33,7 +33,7 @@ export class ProductService {
 
   getbestsaleProduct() {
     return this.getProducts().pipe(
-      tap(x=>x),
+      //tap(x=>x),
       map((product: product[])=>product.sort((a,b)=>b.cop-a.cop)),
       mergeAll(),
       take(5),

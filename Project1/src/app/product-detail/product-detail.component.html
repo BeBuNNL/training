@@ -1,6 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container-fluid mt-5 mb-5" *ngIf="product$ | async as prod">
   <div class="container">
+      <h1 class="mb-4">{{prod.name}}</h1>
     <div class="row align-items-center">
       <div class="col-lg-6 col-12">
         <div class="about-thumb-2">
@@ -10,22 +11,20 @@
       <div class="col-xl-5 col-lg-6 col-12">
         <div class="about-content-2">
           <div class="section-title-3">
-            <h2>{{prod.name}}</h2>
-            <p>{{prod.desc}}</p>
+            <p>Description: {{prod.desc}}</p>
           </div>
-          <p>Price: {{prod.price}}</p>
-          <p>Discount: {{prod.discount}}</p>
-          <p>New price: {{prod.price - prod.price*prod.discount}}</p>
-          <p>Vote: {{prod.vote}}</p>
+          <p>Price: {{prod.price}} - Discount: {{prod.discount}}</p>
+          <b>New price: {{newPrice}}</b>
+          <br><br>
+          <span class="fa fa-star" *ngFor="let item of [0,1,2,3,4], let i = index" [class.check]="i < prod.vote"></span>
+          <br><br>
           <div class="d-inline">
             <button id="sub">-</button>
-            <span id="out">{{countSP}}</span>
+            <span class="ml-3 mr-3" id="out">{{countSP}}</span>
             <button id="add">+</button>
           </div>
-          <br>
-          <span class="fa fa-star check" *ngFor="let item of [0,1,2,3,4], let i = index"></span>
-          <br>
-          <button (click)="gotoProducts()">Back</button>
+          <br><br>
+          <button class="mr-3" (click)="gotoProducts()">Back</button>
           <button (click)="addtoCart(prod, count)">Add to Cart</button>
         </div>
       </div>

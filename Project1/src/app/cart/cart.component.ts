@@ -20,7 +20,7 @@ export class CartComponent implements OnInit, AfterViewInit {
   tBill: number;
   fBill: string;
   info: string[];
-
+  cookieArray: cok[] = [];
 
 
   constructor(
@@ -39,14 +39,24 @@ export class CartComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(){
     this.product$.subscribe(x=>{
+      let term: cok[] = [];
       this.tBill = ~~((x.price * ((100 - x.discount)/100))*this.np*100)/100;
       this.nameUser = this.cookie.get('Name');
-      this.cookie.set('Bill', this.nameUser + '-' + x.name + '-' + this.np + '-' + this.tBill);
-      this.fBill = this.cookie.get('Bill');
-      this.info = this.fBill.split('-');
+      term[0]={name: this.nameUser, pdname: x.name, amount: this.np, totalbill: this.tBill}
+      this.cookieArray.push(term[0]);
+      // this.cookie.set('Bill', this.nameUser + '-' + x.name + '-' + this.np + '-' + this.tBill);
+      this.cookie.set('Bill', JSON.stringify(this.cookieArray));
+      this.fBill = JSON.parse(this.cookie.get('Bill'));
+      console.log('fbill', this.fBill);
+      // this.info = this.fBill.split('-');
       
     })
   }
+}
 
-
+interface cok{
+  name: string;
+  pdname: string;
+  amount: number;
+  totalbill: number;
 }

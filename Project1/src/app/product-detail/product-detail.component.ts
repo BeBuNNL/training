@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ProductService } from '../product.service';
 import { Observable, fromEvent } from 'rxjs';
 import { product } from '../app.component';
-import { switchMap, map, tap, mapTo, scan } from 'rxjs/operators';
+import { switchMap, map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,6 +18,7 @@ export class ProductDetailComponent implements OnInit {
   data: any;
   nameUser: any;
   count: number = 0;
+  newPrice: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +35,7 @@ export class ProductDetailComponent implements OnInit {
       map(x=>{return x.vote})
     ).subscribe(console.log)
 
-     this.data = new Observable(x=>{
+    this.data = new Observable(x=>{
       x.next(0);
       x.complete();
     }).pipe(
@@ -46,6 +47,7 @@ export class ProductDetailComponent implements OnInit {
     let addEv = document.getElementById('add');
     let subEv = document.getElementById('sub');
     let out = document.getElementById('out');
+
     fromEvent(addEv, 'click').pipe(
     ).subscribe(x=>{
       this.count += 1;
@@ -55,8 +57,15 @@ export class ProductDetailComponent implements OnInit {
     fromEvent(subEv, 'click').pipe(
     ).subscribe(x=>{
       this.count += -1;
+      if (this.count === -1){
+        this.count = 0;
+      }
       out.innerHTML = this.count.toString()
     });
+
+    this.product$.subscribe(x=>{
+      this.newPrice = ~~((x.price - x.price*x.discount/100)*100)/100
+    })
   }
 
   gotoProducts(){
