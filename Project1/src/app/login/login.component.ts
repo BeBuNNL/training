@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   fLogin: FormGroup;
   emailInp: FormControl;
   pwdInp: FormControl;
-  cookieValue = 'UNKNOWN';
+  //cookieValue = 'UNKNOWN';
   name: string[];
 
   constructor(

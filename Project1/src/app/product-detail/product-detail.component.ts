@@ -31,9 +31,9 @@ export class ProductDetailComponent implements OnInit {
       switchMap((x: ParamMap)=>this.service.getProduct(x.get('key')))
     );
 
-    this.selectedVote = this.product$.pipe(
-      map(x=>{return x.vote})
-    ).subscribe(console.log)
+    // this.selectedVote = this.product$.pipe(
+    //   map(x=>{return x.vote})
+    // ).subscribe(console.log)
 
     this.data = new Observable(x=>{
       x.next(0);
@@ -73,7 +73,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addtoCart(productx: product, x: number){
-    this.router.navigate(['/addtocart'], {queryParams: {pd: productx.name, 'ns': x}});
+    this.router.navigate(['/addtocart'], {queryParams: {pd: productx.name, 'quantity': x}});
   }
 
   // addtoCart(productx: product){

@@ -1,34 +1,80 @@
 <app-navbar></app-navbar>
 <!-- <app-product></app-product> -->
-<h2 class="text-center mt-5 mb-3">TOP 5 Hot Product</h2>
-<owl-carousel-o [options]="customOptions">
-    <ng-template carouselSlide *ngFor="let hotproduct of hotProducts$ | async; let i = index">
-      <div class="card text-center mt-4">
-        <img class="card-img" src="{{imgUrl}}">
-        <div class="card-img-overlay">
-          <span class="btn card-img-overlay">
-            <a [routerLink]="[ '/product', hotproduct.name ]" class="btn btn-outline-light">View details</a>
-          </span>
-            <!-- <a [routerLink]="[ '/product', product.name ]" class="btn card-img-overlay">
-              <span class="btn btn-outline-light">View details</span>
-            </a> -->
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">{{hotproduct.name}}</h3>
-          <p class="card-text">{{hotproduct.desc}}</p>
-        </div>
-      </div>
-    </ng-template>
-  </owl-carousel-o>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 d-md-block d-none">
+      <ul class="nav flex-column">
+        <li class="nav-item dropright" *ngFor="let mcate of mainCate | async">
+          <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown">{{mcate.category}}</a>
+          <div class="dropdown-menu">
+            <a style="cursor: pointer;" class="dropdown-item" (click)="gotoProdSubcate(scate)" *ngFor="let scate of mcate.subCate">{{scate}}</a>
+          </div>
+        </li>
+        <!-- <li class="nav-item dropright btn-group" *ngFor="let mcate of mainCate | async">
+          <a class="nav-link" href="">{{mcate.category}}</a>
+          <a class="nav-link dropdown-toggle dropdown-toggle-split" href="#" data-toggle="dropdown"></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#" *ngFor="let scate of mcate.subCate">{{scate}}</a>
+          </div>
+        </li> -->
+      </ul>
+    </div>
+    <div class="col-md-9 col-sm-12">
+      <h2 class="text-center mt-5 mb-3">TOP 5 Hot Product</h2>
+      <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide *ngFor="let hotproduct of hotProducts$ | async">
+          <div class="card text-center mt-4">
+            <img class="card-img" src="{{imgUrl}}">
+            <div class="card-img-overlay">
+              <span class="btn card-img-overlay">
+                <a [routerLink]="[ '/product', hotproduct.name ]" class="btn btn-outline-light">View details</a>
+              </span>
+              <!-- <a [routerLink]="[ '/product', product.name ]" class="btn card-img-overlay">
+                    <span class="btn btn-outline-light">View details</span>
+                  </a> -->
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">{{hotproduct.name}}</h3>
+              <p class="card-text">{{hotproduct.desc}}</p>
+            </div>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+
+      <h2 class="text-center mt-5 mb-3">TOP 5 Best sale Product</h2>
+      <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide *ngFor="let bsproduct of bestsaleProducts$ | async">
+          <div class="card text-center mt-4">
+            <img class="card-img" src="{{imgUrl}}">
+            <div class="card-img-overlay">
+              <span class="btn card-img-overlay">
+                <a [routerLink]="[ '/product', bsproduct.name ]" class="btn btn-outline-light">View details</a>
+              </span>
+              <!-- <a [routerLink]="[ '/product', product.name ]" class="btn card-img-overlay">
+                    <span class="btn btn-outline-light">View details</span>
+                  </a> -->
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">{{bsproduct.name}}</h3>
+              <p class="card-text">{{bsproduct.desc}}</p>
+            </div>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+
 <!-- <div id="carouselExampleControls" class="carousel slide container-fluid">
   <div class="carousel-inner">
     <div class="carousel-item" *ngFor="let hotproduct of hotProducts$ | async; let i = index" [class.active]="i == 0"> -->
-      <!-- <img class="d-block w-100" src="{{imgUrl}}">
+<!-- <img class="d-block w-100" src="{{imgUrl}}">
       <div class="carousel-caption d-sm-block">
         <h3>{{hotproduct.name}}</h3>
         <p>{{hotproduct.price}}$ {{hotproduct.desc}}</p>
       </div> -->
-      <!-- <div class="card text-center text-white">
+<!-- <div class="card text-center text-white">
         <img class="card-img-top" src="{{imgUrl}}">
         <div class="card-img-overlay d-flex flex-column justify-content-end">
           <h3 class="card-title">{{hotproduct.name}}</h3>
@@ -49,36 +95,16 @@
   </a>
 </div> -->
 
-<h2 class="text-center mt-5 mb-3">TOP 5 Best sale Product</h2>
-<owl-carousel-o [options]="customOptions">
-    <ng-template carouselSlide *ngFor="let bsproduct of bestsaleProducts$ | async; let i = index">
-      <div class="card text-center mt-4">
-        <img class="card-img" src="{{imgUrl}}">
-        <div class="card-img-overlay">
-          <span class="btn card-img-overlay">
-            <a [routerLink]="[ '/product', bsproduct.name ]" class="btn btn-outline-light">View details</a>
-          </span>
-            <!-- <a [routerLink]="[ '/product', product.name ]" class="btn card-img-overlay">
-              <span class="btn btn-outline-light">View details</span>
-            </a> -->
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">{{bsproduct.name}}</h3>
-          <p class="card-text">{{bsproduct.desc}}</p>
-        </div>
-      </div>
-    </ng-template>
-  </owl-carousel-o>
 <!-- <div id="carouselExampControls" class="carousel slide container-fluid">
   <div class="carousel-inner">
     <div class="carousel-item" *ngFor="let bsproduct of bestsaleProducts$ | async; let i = index"
       [class.active]="i == 0"> -->
-      <!-- <img class="d-block w-100" src="{{imgUrl}}">
+<!-- <img class="d-block w-100" src="{{imgUrl}}">
       <div class="carousel-caption d-sm-block">
         <h3>{{bsproduct.name}}</h3>
         <p>{{bsproduct.price}}$ {{bsproduct.desc}}</p>
       </div> -->
-      <!-- <div class="card text-center text-white">
+<!-- <div class="card text-center text-white">
         <img class="card-img-top" src="{{imgUrl}}">
         <div class="card-img-overlay d-flex flex-column justify-content-end">
           <h3 class="card-title">{{bsproduct.name}}</h3>
@@ -98,4 +124,3 @@
     <span class="sr-only">Next</span>
   </a>
 </div> -->
-<app-footer></app-footer>

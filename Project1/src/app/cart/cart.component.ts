@@ -15,12 +15,12 @@ export class CartComponent implements OnInit, AfterViewInit {
   orderObj: any;
   product$: Observable<product>;
   pd: string;
-  np: number;
-  nameUser: string;
+  quantity: number;
+  nameUser: string = 'user';
   tBill: number;
   fBill: string;
   info: string[];
-  cookieArray: cok[] = [];
+  cookieArray: any[] = [];
 
 
   constructor(
@@ -32,20 +32,28 @@ export class CartComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params=>{
       this.pd = params.pd;
-      this.np = params.ns;
+      this.quantity = params.quantity;
     })
     this.product$ = this.service.getProduct(this.pd);
+    if (this.cookie.get('Bill') !== null){
+      let term = JSON.parse(this.cookie.get('Bill'));
+      console.log('oninit',term);
+      this.cookieArray.push(JSON.stringify(term));
+      console.log('oninit arr', this.cookieArray);
+      let tam = JSON.parse(this.cookie.get('Bill'));
+      console.log('test', tam);
+    }
   }
 
   ngAfterViewInit(){
     this.product$.subscribe(x=>{
-      let term: cok[] = [];
-      this.tBill = ~~((x.price * ((100 - x.discount)/100))*this.np*100)/100;
+      let term;
+      this.tBill = ~~((x.price * ((100 - x.discount)/100))*this.quantity*100)/100;
       this.nameUser = this.cookie.get('Name');
-      term[0]={name: this.nameUser, pdname: x.name, amount: this.np, totalbill: this.tBill}
-      this.cookieArray.push(term[0]);
+      term={name: this.nameUser, pdname: x.name, amount: this.quantity, totalbill: this.tBill};
+      this.cookieArray.push(JSON.stringify(term));
       // this.cookie.set('Bill', this.nameUser + '-' + x.name + '-' + this.np + '-' + this.tBill);
-      this.cookie.set('Bill', JSON.stringify(this.cookieArray));
+      this.cookie.set('Bill', JSON.stringify(term));
       this.fBill = JSON.parse(this.cookie.get('Bill'));
       console.log('fbill', this.fBill);
       // this.info = this.fBill.split('-');
@@ -54,9 +62,9 @@ export class CartComponent implements OnInit, AfterViewInit {
   }
 }
 
-interface cok{
-  name: string;
-  pdname: string;
-  amount: number;
-  totalbill: number;
-}
+// interface cok{
+//   name: string;
+//   pdname: string;
+//   amount: number;
+//   totalbill: number;
+// }

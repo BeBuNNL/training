@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CookieService } from 'ngx-cookie-service';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { ProdcateComponent } from './prodcate/prodcate.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     CartComponent,
     NavbarComponent,
     FooterComponent,
-    ProductDetailComponent  
+    ProductDetailComponent,
+    ProdcateComponent  
   ],
   imports: [
     BrowserModule,

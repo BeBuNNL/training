@@ -23,12 +23,13 @@ export class ProductComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.products$ = this.route.paramMap.pipe(
-      switchMap(x=>{
-        this.selectedProduct = x.get('name');
-        return this.service.getProducts();
-      })
-    )
+    // this.products$ = this.route.paramMap.pipe(
+    //   switchMap(x=>{
+    //     //this.selectedProduct = x.get('name');
+    //     return this.service.getProducts();
+    //   })
+    // )
+    this.products$ = this.service.getProducts();
   }
 
   // onSelect(product: product): void{

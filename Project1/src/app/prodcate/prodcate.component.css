@@ -1,3 +1,7 @@
+.check{
+    color: orange;
+}
+
 div.card span{
     visibility: hidden;
 }
@@ -14,10 +18,11 @@ div.card-img-overlay span a{
     transform: translate(-50%,-50%);
 }
 
-div.carousel-item img.card-img{
-    background-size: cover;
-}
-
-.card-img-left{
-    float: left;
+@media (min-width: 768px) {
+    div.card-img-overlay.mode2 span a{
+        position: absolute;
+        top: 65%;
+        left: 90%;
+        transform: translate(-50%,-50%);
+    }
 }

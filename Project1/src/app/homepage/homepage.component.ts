@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PRODUCTS, product } from '../app.component'
+import { product, prodCate } from '../app.component'
 import { Observable } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { ProductService } from '../product.service'
 import { OwlOptions } from 'ngx-owl-carousel-o'
 
@@ -16,25 +16,52 @@ export class HomepageComponent implements OnInit {
   bestsaleProducts$: Observable<product[]>;
   selectedProduct: string;
   imgUrl = 'https://www.w3schools.com/bootstrap/la.jpg';
-
+  mainCate: Observable<{ category: string | string[]; subCate: (string | string[])[]; }[]>;
+  subCate: Observable<string[]>;
+  objKeys = Object.keys;
   constructor(
     private route: ActivatedRoute,
-    private service: ProductService
+    private service: ProductService,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.hotProducts$ = this.route.paramMap.pipe(
-      switchMap(()=>{
-        return this.service.gethotProduct();
-      })
-    ),
+    this.hotProducts$ = this.service.gethotProduct();
+    this.bestsaleProducts$ = this.service.getbestsaleProduct();
+    // this.hotProducts$ = this.route.paramMap.pipe(
+    //   switchMap(()=>{
+    //     return this.service.gethotProduct();
+    //   })
+    // ),
 
-    this.bestsaleProducts$ = this.route.paramMap.pipe(
-      switchMap(()=>{
-        return this.service.getbestsaleProduct();
-      })
-    )
-    console.log(this.bestsaleProducts$)
+    // this.bestsaleProducts$ = this.route.paramMap.pipe(
+    //   switchMap(()=>{
+    //     return this.service.getbestsaleProduct();
+    //   })
+    // ),
+
+    // this.mainCate = this.route.paramMap.pipe(
+    //   switchMap(()=>{
+    //     return this.service.getMainCategory();
+    //   })
+    // ),
+    // this.subCate = this.route.paramMap.pipe(
+    //   switchMap(()=>{
+    //     return this.service.getSubCategory()
+    //   })
+    // ),
+    // this.mainCate = this.route.paramMap.pipe(
+    //   switchMap(()=>{
+    //     return this.service.getCategory();
+    //   })
+    // ),
+    this.mainCate = this.service.getCategory();
+    console.log('1',this.bestsaleProducts$),
+    console.log(this.mainCate, '-', this.subCate)
+  }
+
+  gotoProdSubcate(x:any){
+    this.router.navigate(['/category'],{queryParams: {subcategory: x}});
   }
 
   customOptions: OwlOptions = {
