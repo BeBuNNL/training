@@ -15,6 +15,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { CookieService } from 'ngx-cookie-service';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ProdcateComponent } from './prodcate/prodcate.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ProdcateComponent } from './prodcate/prodcate.component';
     NavbarComponent,
     FooterComponent,
     ProductDetailComponent,
-    ProdcateComponent  
+    ProdcateComponent,
+    FilterPipe  
   ],
   imports: [
     BrowserModule,

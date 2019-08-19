@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs'
-import { PRODUCTS, product, categoryList, prodCate } from './app.component'
+import { PRODUCTS, product, categoryList, prodCate, subBrand, SUBBRAND } from './app.component'
 import { map, take, toArray, mergeAll, tap, distinct, pluck, groupBy, mergeMap, reduce, filter } from 'rxjs/operators';
 
 @Injectable({
@@ -50,7 +50,7 @@ export class ProductService {
       mergeAll(),
       groupBy(p=>p.category, p=>p.subCate),
       mergeMap(grp$=>grp$.pipe(
-      reduce((acc,cur)=>[...acc,cur],[`${grp$.key}`])
+        reduce((acc,cur)=>[...acc,cur],[`${grp$.key}`])
       )),
       map(arr=>({category: arr[0], subCate: arr.slice(1)})),
       toArray()
@@ -72,13 +72,62 @@ export class ProductService {
     )
   }
 
-  getProd(){
-    return this.getCategoryList().pipe(
-      tap(x=>x),
-      mergeAll(),
-      filter(key=>key.subCate === 'TVs'),
-      map(y=>{return y.id}),
+  // getProd(){
+  //   return this.getCategoryList().pipe(
+  //     tap(x=>x),
+  //     mergeAll(),
+  //     filter(key=>key.subCate === 'TVs'),
+  //     map(y=>{return y.id}),
+  //   )
+  // }
 
+  getBrandOfProduct(x: number){
+    return this.getProductByCategory(x).pipe(
+      mergeAll(),
+      distinct(list=>list.brand),
+      map(data => {
+        return data.brand
+      }),
+      toArray()
     )
   }
+
+  getBrandOfProductByValue(key: string, id: number){
+    return this.getBrandOfProduct(id).pipe(
+      mergeAll(),
+      filter(brand => brand == key),
+      toArray()
+    )
+  }
+
+  getSubAttribute(): Observable<SUBBRAND[]>{
+    return of(subBrand)
+  }
+
+  // getSubBrandTitleOfProduct(){
+  //   return this.getSubAttribute().pipe(
+  //     mergeAll(),
+  //     groupBy(p => p.parentId, p=> p.id),
+  //     mergeMap(grp=>grp.pipe(
+  //       reduce((acc,cur)=>[...acc,cur],[`$grp.key`])
+  //     )),
+  //     map(arr=>({brd: arr})),
+  //     toArray()
+  //   )
+  // }
+
+  getProductByBrandAttr(attr: number, brand: string, id: number ){
+    return this.getProductByCategory(id).pipe(
+      mergeAll(),
+      filter(product => product.brand == brand),
+      filter(product => product.subBrandId == attr),
+      toArray()
+    )
+  }
+
+  // getProductByBrandAttr(brand, attr){
+  //   if (brand !== ''){
+
+  //   }
+  // }
 }
