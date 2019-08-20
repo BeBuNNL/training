@@ -6,10 +6,12 @@ export class Product{
         public oldPrice: number,
         public description: string,
         public isAvailable: boolean = true,
-        public categoryId: string[],
+        public category: string[],
         public rating: number,
         public discount: number,
         public imgUrl: string,
         public isHotProduct: boolean,
+        public isFiltered: boolean = false,
+        public isSale: number,
     ){ }
 }
