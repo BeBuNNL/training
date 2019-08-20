@@ -43,7 +43,7 @@
 <owl-carousel-o [options]="customOptions">
     <ng-template carouselSlide *ngFor="let product of products$ | async; let i = index">
       <div class="card text-center mt-4">
-        <img class="card-img" src="{{imgUrl}}">
+        <img class="card-img" src="{{product.img}}">
         <div class="card-img-overlay">
           <span class="btn card-img-overlay">
             <a [routerLink]="[ '/product', product.name ]" class="btn btn-outline-light">View details</a>
