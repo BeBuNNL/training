@@ -3,7 +3,6 @@ import { Product } from "../models/products.model";
 import { LocalStorageService } from "./local-storage.service";
 import { Filter } from "../models/filterInHomepage.model";
 import { Observable, BehaviorSubject } from "rxjs";
-import { promise } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +32,40 @@ export class ProductService {
 
   updateToLocalStorage(){
     this.storgeService.setObject(ProductService.ProductStorageKey, this.products);
-    //this.filteredProducts()
+    this.filterProducts(this.currentFilter, false);
+    this.updateProductsData();
   }
 
+  addProduct(title: string, any: string){
+    //const date = new Date(Date.now()).getTime();
+    //const newProduct = new Product(date, title, ...any);
+    //this.products.push(newProduct);
+    this.updateToLocalStorage();
+  }
+
+  changeProductStatus(id: number, isFiltered: boolean){
+    const index = this.products.findIndex(pos => pos.id === id);
+    const product = this.products[index];
+    product.isFiltered = isFiltered;
+    this.products.splice(index, 1, product);
+    this.updateToLocalStorage();
+  }
+
+  editProduct(id: number, content: string){
+    const index = this.products.findIndex(pos => pos.id === id);
+    const product = this.products[index];
+    //data product
+    this.products.splice(index, 1, product);
+    this.updateToLocalStorage();
+  }
+
+  deleteproduct(id: number){
+    const index = this.products.findIndex(pos => pos.id === id);
+    this.products.splice(index, 1);
+    this.updateToLocalStorage();
+  }
+
+  
   filterProducts(filter: Filter, isFiltering: boolean = true){
     this.currentFilter = filter;
     switch (filter) {
@@ -46,7 +76,14 @@ export class ProductService {
         this.filteredProducts = this.products.filter(product => product.isHotProduct);
         break;
       case Filter.bestSellers:
-        this.filteredProducts = this.products.filter(product => product.isSale);
+        this.filteredProducts = this.products.sort(
+          (cur, acc) => (cur.isSale > acc.isSale) ? 1 : ((acc.isSale > cur.isSale) ? -1 : 0)
+        );
+        break;
+    }
+
+    if (isFiltering){
+      this.updateProductsData();
     }
   }
   private updateProductsData(){

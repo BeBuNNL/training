@@ -8,6 +8,9 @@ import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { FooterComponent } from './layouts/footer/footer.component';
     AboutPageComponent,
     HomePageComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ProductDetailsComponent,
+    CheckoutComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
