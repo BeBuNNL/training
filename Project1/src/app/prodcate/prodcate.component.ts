@@ -37,7 +37,7 @@ export class ProdcateComponent implements OnInit {
       map((product) => product.sort((acc,cur) => cur.name > acc.name ? 1 : -1))
     ).subscribe(x=>this.productCate$ = x);
     this.pServ.getBrandOfProduct(this.cateID).subscribe(x => this.productBrand = x);
-    console.log(this.productBrand)
+    console.log(this.productBrand);
   }
 
   onDisplayMode(mode: number){
@@ -45,6 +45,7 @@ export class ProdcateComponent implements OnInit {
   }
 
   onChange(value){
+    this.productCate$.filter()
     let arrayProductById = this.pServ.getProductByCategory(this.cateID);
     switch (value) {
       case 'Rating':
