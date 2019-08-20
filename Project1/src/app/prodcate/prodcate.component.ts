@@ -20,7 +20,7 @@ export class ProdcateComponent implements OnInit {
   productBrand;
   stateCategoryFilter = 0;
   stateAttrFilter = 0;
-  selectedBrand;
+  selectedBrand = '';
   subBrandArr = subBrand;
 
   constructor(

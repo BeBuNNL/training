@@ -9,8 +9,8 @@
       </div>
       <div class="contain" *ngFor="let subbrand of subBrandArr">
           <h4 class="mt-2" *ngIf="subbrand.parentId == null">{{subbrand.title}} {{subbrand.id}}</h4>
-          <div class="custom-control custom-checkbox" *ngFor="let subAttr of subBrandArr; index as i" (change)="changeSubBrandFilter($event.target.value)">
-            <input type="checkbox" class="custom-control-input" [id]="'subcheckbox' + i + subbrand.title" [value]="subAttr.id" *ngIf="subAttr.parentId === subbrand.id">
+          <div [ngClass]="(subAttr.parentId === subbrand.id) ? 'custom-control custom-checkbox' : ''" *ngFor="let subAttr of subBrandArr; index as i" (change)="changeSubBrandFilter($event.target.value)">
+            <input type="checkbox" class="custom-control-input" [id]="'subcheckbox' + i + subbrand.title" [value]="subAttr.id">
             <label for="" class="custom-control-label" [for]="'subcheckbox' + i  + subbrand.title" *ngIf="subAttr.parentId === subbrand.id">{{subAttr.title}} {{subAttr.parentId}}</label>
           </div>
       </div>

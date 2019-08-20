@@ -117,12 +117,22 @@ export class ProductService {
   // }
 
   getProductByBrandAttr(attr: number, brand: string, id: number ){
-    return this.getProductByCategory(id).pipe(
-      mergeAll(),
-      filter(product => product.brand == brand),
-      filter(product => product.subBrandId == attr),
-      toArray()
-    )
+    if(brand !== ''){
+      return this.getProductByCategory(id).pipe(
+        mergeAll(),
+        filter(product => product.brand == brand),
+        filter(product => product.subBrandId == attr),
+        toArray()
+      )
+    } else {
+      return this.getProductByCategory(id).pipe(
+        mergeAll(),
+        //filter(product => product.brand == brand),
+        filter(product => product.subBrandId == attr),
+        toArray()
+      )
+    }
+    
   }
 
   // getProductByBrandAttr(brand, attr){
