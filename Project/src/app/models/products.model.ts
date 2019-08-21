@@ -3,14 +3,15 @@ export class Product{
         public id: number,//timestamp
         public title: string,
         public price: number,
-        public oldPrice: number,
         public description: string,
         public isAvailable: boolean = true,
-        public category: string[],
+        public brand: string,
+        public category: string,
+        public color: string[],
         public rating: number,
         public discount: number,
         public imgUrl: string,
-        public isHotProduct: boolean,
+        public isHot: boolean,
         public isFiltered: boolean = false,
         public isSale: number,
     ){ }

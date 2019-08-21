@@ -3,6 +3,7 @@ import { Product } from "../models/products.model";
 import { LocalStorageService } from "./local-storage.service";
 import { Filter } from "../models/filterInHomepage.model";
 import { Observable, BehaviorSubject } from "rxjs";
+import { PRODUCTS } from '../database/products-list';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +14,20 @@ export class ProductService {
   private products: Product[];
   private filteredProducts: Product[];
   private currentFilter: Filter = Filter.all;
-  //private lenghtSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  private lengthFilterProductSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private productSubject: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
   private displayProductSubject: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
 
   products$: Observable<Product[]> = this.displayProductSubject.asObservable();
-  //lenght$: Observable<number> = this.lenghtSubject.asObservable();
+  lenght$: Observable<number> = this.lengthFilterProductSubject.asObservable();
 
   constructor(
-    private storgeService: LocalStorageService
-  ) { }
+    private storgeService: LocalStorageService,
+  ) {
+    this.products = PRODUCTS;
+    this.updateToLocalStorage();
+    this.fetchFromLocalStorage();
+  }
 
   fetchFromLocalStorage(){
     this.products = this.storgeService.getValue<Product[]>(ProductService.ProductStorageKey) || [];
@@ -36,12 +41,12 @@ export class ProductService {
     this.updateProductsData();
   }
 
-  addProduct(title: string, any: string){
-    //const date = new Date(Date.now()).getTime();
-    //const newProduct = new Product(date, title, ...any);
-    //this.products.push(newProduct);
-    this.updateToLocalStorage();
-  }
+  // addProduct(title: string, any: string){
+  //   const date = new Date(Date.now()).getTime();
+  //   const newProduct = new Product(date, title, ...any);
+  //   this.products.push(newProduct);
+  //   this.updateToLocalStorage();
+  // }
 
   changeProductStatus(id: number, isFiltered: boolean){
     const index = this.products.findIndex(pos => pos.id === id);
@@ -65,7 +70,6 @@ export class ProductService {
     this.updateToLocalStorage();
   }
 
-  
   filterProducts(filter: Filter, isFiltering: boolean = true){
     this.currentFilter = filter;
     switch (filter) {
@@ -73,7 +77,7 @@ export class ProductService {
         this.filteredProducts = this.products.filter(product => !product.isFiltered);
         break;
       case Filter.hot:
-        this.filteredProducts = this.products.filter(product => product.isHotProduct);
+        this.filteredProducts = this.products.filter(product => product.isHot);
         break;
       case Filter.bestSellers:
         this.filteredProducts = this.products.sort(
@@ -86,8 +90,9 @@ export class ProductService {
       this.updateProductsData();
     }
   }
+  
   private updateProductsData(){
     this.displayProductSubject.next(this.filteredProducts);
-    //this.lengthSubject.next(this.products.length);
+    this.lengthFilterProductSubject.next(this.filteredProducts.length);
   }
 }

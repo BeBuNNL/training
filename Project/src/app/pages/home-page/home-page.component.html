@@ -18,7 +18,8 @@
           <img class="card-img" src="https://www.w3schools.com/w3css/img_lights.jpg" alt="Card image">
           <div class="card-img-overlay">
             <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+            <p class="card-text text-truncate">This is a wider card with supporting text below as a natural lead-in to
+              additional
               content. This content is a little bit longer.</p>
           </div>
         </div>
@@ -28,7 +29,8 @@
           <img class="card-img" src="https://www.w3schools.com/w3css/img_lights.jpg" alt="Card image">
           <div class="card-img-overlay">
             <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+            <p class="card-text text-truncate">This is a wider card with supporting text below as a natural lead-in to
+              additional
               content. This content is a little bit longer.</p>
           </div>
         </div>
@@ -43,7 +45,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text text-truncate">With supporting text below as a natural lead-in to additional content.</p>
         </div>
       </div>
     </div>
@@ -51,7 +53,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text text-truncate">With supporting text below as a natural lead-in to additional content.</p>
         </div>
       </div>
     </div>
@@ -59,7 +61,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text text-truncate">With supporting text below as a natural lead-in to additional content.</p>
         </div>
       </div>
     </div>
@@ -71,15 +73,74 @@
     <h2>OUR PRODUCT</h2>
     <div class="row">
       <div class="col-md-6 col-sm-8 offset-md-3 offset-sm-2">
-        <div class="d-flex justify-content-between align-items-center">
-          <button type="button" *ngFor="let btn of filterButtons"
-            [ngClass]="{'active': btn.isActive}">{{btn.label}}</button>
+        <div class="d-flex justify-content-around align-items-center">
+          <button type="button" *ngFor="let btn of filterButtons" [ngClass]="{'active': btn.isActive}"
+            class="btn btn-outline-primary">{{btn.label}}</button>
         </div>
       </div>
     </div>
-    <div class="row">
-        
+    <div class="container">
+      <!-- <div *ngFor="let product of products$ | async">
+        <p>{{product.title}}</p>
+      </div> -->
+
+
+
+
     </div>
+    <!-- End our product -->
   </div>
-  <!-- End our product -->
+  <!-- <div class="card text-center mt-4">
+    <img class="card-img" src="{{product.imgUrl}}">
+    <div class="card-img-overlay">
+      <span class="btn card-img-overlay">
+        <a [routerLink]="" class="btn btn-outline-light">View details</a>
+      </span>
+    </div>
+    <div class="card-body">
+      <h3 class="card-title">{{product.title}}</h3>
+      <p class="card-text">{{product.description}}</p>
+    </div>
+  </div> -->
+</div>
+
+<!-- <owl-carousel-o [options]="customOptions">
+  <ng-template carouselSlide *ngFor="let product of products$ | async">
+    <div class="card text-center mt-4">
+      <img class="card-img" src="{{product.imgUrl}}">
+      <div class="card-img-overlay">
+        <span class="btn card-img-overlay">
+          <a [routerLink]="" class="btn btn-outline-light">View details</a>
+        </span>
+        <a [routerLink]="[ '/product', product.name ]" class="btn card-img-overlay">
+                <span class="btn btn-outline-light">View details</span>
+              </a>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">{{product.title}}</h3>
+        <p class="card-text">{{product.description}}</p>
+      </div>
+    </div>
+  </ng-template>
+</owl-carousel-o> -->
+<div class="container">
+  <owl-carousel-o [options]="customOptions">
+    <ng-container *ngFor="let product of products$ | async">
+      <ng-template carouselSlide>
+        <div class="card text-center mt-4">
+          <img class="card-img" src="{{product.imgUrl}}">
+          <div class="card-img-overlay">
+            <span class="btn card-img-overlay">
+              <a [routerLink]="[ '/product', product.id ]" class="btn btn-outline-light">View details</a>
+            </span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">{{product.title}}</h3>
+            <p class="card-text">{{product.description}}</p>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  
+  </owl-carousel-o>
 </div>
