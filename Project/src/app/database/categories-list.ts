@@ -14,12 +14,12 @@ export const CATEGORY: Categories[] = [
     {
         id: 'E112',
         title: 'Laptop',
-        parentId: null,
+        parentId: 'E1',
     },
     {
         id: 'E113',
         title: 'PCs',
-        parentId: null,
+        parentId: 'E1',
     },
     {
         id: 'G1',
@@ -29,6 +29,6 @@ export const CATEGORY: Categories[] = [
     {
         id: 'G111',
         title: 'Watch',
-        parentId: null,
+        parentId: 'G1',
     }
 ]

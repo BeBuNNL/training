@@ -6,7 +6,7 @@ export const PRODUCTS: Product[] = [
         title: 'iPhone X',
         rating: 5,
         price: 1500,
-        isSale: 350,
+        countSale: 350,
         isHot: true,
         discount: 0,
         brand: 'Apple',
@@ -14,7 +14,7 @@ export const PRODUCTS: Product[] = [
         color: ['Black', 'Rose Gold', 'Silver'],
         description: 'New generation of iPhone in 2018, by Apple, Inc',
         isAvailable: true,
-        isFiltered: true,
+        isNewest: true,
         imgUrl: 'https://cdn.tgdd.vn/Products/Images/42/114115/iphone-x-64gb-1-400x460-1-400x460.png'
     },
     {
@@ -22,7 +22,7 @@ export const PRODUCTS: Product[] = [
         title: 'Huawei Mate 30 Pro',
         rating: 4,
         price: 1200,
-        isSale: 300,
+        countSale: 300,
         isHot: true,
         discount: 20,
         brand: 'Huawei',
@@ -30,7 +30,7 @@ export const PRODUCTS: Product[] = [
         color:['Black'],
         description: 'New phone design by Huawei, Inc',
         isAvailable: true,
-        isFiltered: true,
+        isNewest: true,
         imgUrl: 'http://genknews.genkcdn.vn/2019/8/11/342cv-1565486172207188845559.jpg'
     },
     {
@@ -38,15 +38,15 @@ export const PRODUCTS: Product[] = [
         title: 'Samsung Galaxy Note 10',
         rating: 5,
         price: 950,
-        isSale: 360,
+        countSale: 360,
         isHot: true,
         discount: 0,
         brand: 'Samsung',
         category: 'E111',
         color: [' Matte Black'],
         description: 'New Note by Samsung, Inc',
-        isAvailable: true,
-        isFiltered: true,
+        isAvailable: false,
+        isNewest: true,
         imgUrl: 'https://www.androidcentral.com/sites/androidcentral.com/files/styles/w830/public/article_images/2019/07/samsung-galaxy-note-10-silver-cropped.jpg?itok=Xf8Iy6br'
     },
     {
@@ -54,7 +54,7 @@ export const PRODUCTS: Product[] = [
         title: 'OnePlus 7 Pro',
         rating: 3,
         price: 800,
-        isSale: 310,
+        countSale: 310,
         isHot: false,
         discount: 40,
         brand: 'OnePlus',
@@ -62,7 +62,7 @@ export const PRODUCTS: Product[] = [
         color: ['Red'],
         description: 'New generation of iPhone in 2018, by Apple, Inc',
         isAvailable: true,
-        isFiltered: true,
+        isNewest: true,
         imgUrl: 'https://sudospaces.com/mobilecity-vn/images/2019/05/oneplus-7-pro-nebula-blue.jpg'
     },
     {
@@ -70,7 +70,7 @@ export const PRODUCTS: Product[] = [
         title: 'Gucci G-Time 38mm',
         rating: 3,
         price: 800,
-        isSale: 310,
+        countSale: 310,
         isHot: false,
         discount: 40,
         brand: 'Gucci',
@@ -78,7 +78,7 @@ export const PRODUCTS: Product[] = [
         color: ['White'],
         description: 'Design by Oven at Gucci',
         isAvailable: true,
-        isFiltered: true,
+        isNewest: true,
         imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/71X-m4MRMFL._UL1500_.jpg'
     }
 ]

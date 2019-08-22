@@ -1,1 +1,31 @@
-<p>product-details works!</p>
+<div class="container" *ngIf="product">
+  <div class="row mt-5 mb-5">
+    <div class="col-md-6 col-sm-12 offset-md-1">
+      <img src="{{product.imgUrl}}">
+    </div>
+    <div class="col-md-5 col-sm-12">
+      <a class="mb-2" routerLink="">Back to Shop</a>
+      <h2>{{product.title}}</h2>
+      <span class="fa fa-star" *ngFor="let item of [0,1,2,3,4], let i = index" [class.check]="i < product.rating"></span>
+      <br>
+      <strong><font size="+3">${{product.price}}</font></strong>
+      <p>
+        <font size="+1">
+        <strong>Availablity:</strong>
+        <ng-container *ngIf="product.isAvailable; then thenTemplate; else elseTemplate"></ng-container>
+        <ng-template #thenTemplate>
+            In Stocks
+        </ng-template>
+        <ng-template #elseTemplate>
+            Out Of Stock
+        </ng-template>
+        </font>
+      </p>
+      <p>{{product.description}}</p>
+      <div class="mt-3">
+            <button class="btn btn-outline-primary mr-2" (click)="addToWishlist(product.id)">Add To Wishlist</button>
+            <button class="btn btn-primary" (click)="addToCart(product.id)" [disabled]="!product.isAvailable">Add To Card</button>
+      </div>
+    </div>
+  </div>
+</div>

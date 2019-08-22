@@ -12,7 +12,7 @@ export class Product{
         public discount: number,
         public imgUrl: string,
         public isHot: boolean,
-        public isFiltered: boolean = false,
-        public isSale: number,
+        public isNewest: boolean = false,
+        public countSale: number,
     ){ }
 }
